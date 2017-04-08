@@ -95,6 +95,10 @@ function Enemy:update(dt)
 			HC.remove(e.body)
 			if shape == Tank.body then
 				gameOver = true
+			else
+				if shape.bullet then
+					shape.bullet.life = 0	
+				end
 			end
 		end
 	end

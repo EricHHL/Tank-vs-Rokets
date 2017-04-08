@@ -76,12 +76,14 @@ function love.keypressed(key, scancode, isrepeat)
 
     for i, e in ipairs(Enemys) do
       HC.remove(e.body)
-      table.insert(Explosions, Explosion:create(e.x, e.y))
-      table.remove(Enemys, i)
+      --table.insert(Explosions, Explosion:create(e.x, e.y))
+      --table.remove(Enemys, i)
     end
     for i, b in ipairs(Cannon.bullets) do
       HC.remove(b.body)
-      table.remove(Cannon.bullets, i)
+      --table.remove(Cannon.bullets, i)
     end
+    Enemys = {}
+    Cannon.bullets = {}
 	end
 end
