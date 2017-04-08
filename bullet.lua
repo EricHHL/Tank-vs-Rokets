@@ -24,6 +24,8 @@ function Bullet:create()
                                      bullet.x - bullet.width / 120, bullet.y + bullet.height / 120)
 	bullet.body:rotate(bullet.r)
 
+	bullet.body.bullet = bullet
+
 	return bullet
 end
 
