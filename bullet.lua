@@ -37,6 +37,7 @@ function Bullet:update(dt)
 		b.life = b.life - dt
 		b.body:moveTo(b.x + 22 * b.dir.x, b.y + 22 * b.dir.y)
 		if b.life <= 0 then
+			HC.remove(b.body)
 			table.remove(Cannon.bullets, i)
 		end
 	end
