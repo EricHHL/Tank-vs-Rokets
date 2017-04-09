@@ -2,9 +2,15 @@ HC = require("HC-master")
 require("tank")
 require("cannon")
 require("enemy")
+
+score = 0
+local scoreFont = love.graphics.newFont("_font/AllertaStencil-Regular.ttf", 40)
+
 local gameOverImg = love.graphics.newImage("_img/gameOver.png")
 local terreno = love.graphics.newImage("_terreno/terreno.jpg")
 local tankDown = false
+
+
 deBugMode = false
 
 
@@ -17,6 +23,10 @@ function love.load(arg)
 end
 
 function love.update(dt)
+  if not gameOver then
+    score = score + dt
+  end
+
 	if not gameOver then
   	Tank:update(dt)
   	Cannon:update(dt)
@@ -28,6 +38,8 @@ function love.update(dt)
 end
 
 function love.draw()
+  love.graphics.setFont(scoreFont)
+
 	--Desenha o terreno
 	love.graphics.draw(terreno)
 	--Desenha as balas
@@ -49,7 +61,10 @@ function love.draw()
   		table.insert(Explosions, Explosion:create(Tank.x, Tank.y))
   	end
   	--Desenha o Game Over
-  	love.graphics.draw(gameOverImg, Width / 2, Height / 2, 0, 1, 1, gameOverImg:getWidth()/2, gameOverImg:getHeight()/2)
+    love.graphics.draw(gameOverImg, Width / 2, Height / 2, 0, 1, 1, gameOverImg:getWidth()/2, gameOverImg:getHeight()/2)
+    color1 = {0, 0, 0}
+    texto = { color1 , "SCORE: ", color1, math.ceil(score) }
+    love.graphics.printf(texto, Width / 2 - 300, Height / 2 + 120, 600, "center")
   end
 end
 
@@ -83,5 +98,7 @@ function love.keypressed(key, scancode, isrepeat)
     Enemys = {}
     Cannon.bullets = {}
     Cannon.coultdown = 0.08
+    score = 0
+    dificulty = 0
 	end
 end

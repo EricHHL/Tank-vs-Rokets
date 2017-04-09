@@ -2,6 +2,7 @@ require("explosion")
 Enemy = {}
 Enemys = {}
 cdEnemy = 3
+dificulty = 0
 
 gameOver = false
 
@@ -66,6 +67,8 @@ function Enemy:create()
     		enemy.body:rotate(math.asin(-enemy.dir.x / enemy.hip) + math.pi)
   		end
 		
+  		enemy.body.enemy = enemy
+
 	return enemy
 end
 
@@ -74,7 +77,8 @@ function Enemy:update(dt)
 	-- Tempo entre Rokets
 	cdEnemy = cdEnemy - dt
 	if cdEnemy <= 0 then
-  		cdEnemy = 1
+  		cdEnemy = 1.5 - dificulty
+  		dificulty = dificulty + dt / 2
   		table.insert(Enemys, Enemy:create())
   	end
 
@@ -96,7 +100,8 @@ function Enemy:update(dt)
 			if shape == Tank.body then
 				gameOver = true
 			elseif shape.bullet then
-				shape.bullet.life = 0	
+				shape.bullet.life = 0
+				score = score + 1
 			end
 		end
 	end
